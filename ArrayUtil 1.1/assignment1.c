@@ -25,8 +25,6 @@ int areEqual(ArrayUtil a, ArrayUtil b){
 
 void dispose(ArrayUtil util){
 	free(util.base);
-	util.typeSize = 0;
-	util.length = 0;
 };
 
 int findIndex(ArrayUtil util, void* element){
