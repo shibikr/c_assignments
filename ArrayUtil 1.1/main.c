@@ -23,11 +23,21 @@ void areEqualTest(){
 	assert(areEqual(array2,array2) == 1);
 };
 
-
+void findIndexTest(){
+	int value = 1;
+	int value1 = 0;
+	int value2 = 10;
+	ArrayUtil array1 = create(4,5);
+	((int *)array1.base)[0] = value;
+	assert(findIndex(array1,&value) == 0);
+	assert(findIndex(array1,&value2) == -1);
+	assert(findIndex(array1,&value1) == 1);
+};
 
 int main(){
 	createArrayTest();
 	resizeArrayTest();
 	areEqualTest();
+	findIndexTest();
 	return 0;
 };

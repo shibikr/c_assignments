@@ -30,11 +30,11 @@ void dispose(ArrayUtil util){
 int findIndex(ArrayUtil util, void* element){
 	int length = util.length;
 	for(int i = 0;i < length;i++){
-		if(memcmp((util.base+i),element,util.typeSize) == 0)
+		if(memcmp(util.base,element,util.typeSize) == 0)
 			return i;
-		return -1;
+		util.base+=util.typeSize;
 	};
-	return 0;
+	return -1;
 };
 
 
