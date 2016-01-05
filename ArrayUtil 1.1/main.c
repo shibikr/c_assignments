@@ -34,10 +34,60 @@ void findIndexTest(){
 	assert(findIndex(array1,&value1) == 1);
 };
 
+MatchFunc *isEven(void* hint, void* item){
+	int *value = (int *)(item);
+	if(*value%2 != 0)
+		return 1;
+	return 0;
+};
+
+void findFirstTest(){
+	int number = 1;
+	void* hint = &number;
+	ArrayUtil array1 = create(4,5);
+	((int *)array1.base)[0] = 1;
+	((int *)array1.base)[1] = 2;
+	((int *)array1.base)[2] = 3;
+	((int *)array1.base)[3] = 4;
+	((int *)array1.base)[4] = 5;
+	void * result = findFirst(array1,isEven,hint);
+	int *value = (int *)(result);
+	assert(*value == 2);
+};
+
+void findLastTest(){
+	int number = 1;
+	void* hint = &number;
+	ArrayUtil array1 = create(4,5);
+	((int *)array1.base)[0] = 1;
+	((int *)array1.base)[1] = 2;
+	((int *)array1.base)[2] = 3;
+	((int *)array1.base)[3] = 4;
+	((int *)array1.base)[4] = 5;
+	void * result = findLast(array1,isEven,hint);
+	int *value = (int *)(result);
+	assert(*value == 4);
+};
+
+void countTest(){
+	int number = 1;
+	void* hint = &number;
+	ArrayUtil array1 = create(4,5);
+	((int *)array1.base)[0] = 1;
+	((int *)array1.base)[1] = 2;
+	((int *)array1.base)[2] = 3;
+	((int *)array1.base)[3] = 4;
+	((int *)array1.base)[4] = 5;
+	assert(count(array1,isEven,hint) == 2);
+};
+
 int main(){
 	createArrayTest();
 	resizeArrayTest();
 	areEqualTest();
 	findIndexTest();
+	findFirstTest();
+	findLastTest();
+	countTest();
 	return 0;
 };
