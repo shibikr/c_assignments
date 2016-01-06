@@ -4,7 +4,7 @@ typedef struct{
 	int length;
 } ArrayUtil;
 
-typedef int(MatchFunc)(int *,int *);
+typedef int(MatchFunc)(void *,void *);
 
 ArrayUtil create(int typeSize, int length);
 ArrayUtil resize(ArrayUtil util, int length);
