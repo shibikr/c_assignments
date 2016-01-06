@@ -47,8 +47,8 @@ void* findFirst(ArrayUtil util, MatchFunc* match, void* hint){
 };
 
 void* findLast(ArrayUtil util, MatchFunc* match, void* hint){
-	void *base = util.base+(util.length*util.typeSize);
-	for(int i = 0;i < util.lenght ;i++){
+	void *base = util.base+((util.length-1)*util.typeSize);
+	for(int i = 0;i < util.length ;i++){
 		if(match(hint,base) == 1 )
 			return (base);
 		base-=util.typeSize;
