@@ -1,6 +1,7 @@
 #include "assignment1.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 ArrayUtil create(int typeSize, int length){
 	ArrayUtil util; 
@@ -61,6 +62,19 @@ int count(ArrayUtil util, MatchFunc* match, void* hint){
 	for(int i = 0;i < util.length;i++){
 		if(match(hint,util.base) == 1 )
 			count++;
+		util.base+=util.typeSize;
+	};
+	return count;
+};
+
+int filter(ArrayUtil util, MatchFunc* match, void* hint, void** destination, int maxItems ){
+	int count = 0;
+	for(int i = 0;i < util.length && count < maxItems;i++){
+		if(match(hint,util.base) == 1 ){
+			*destination = util.base;
+			count++;
+			destination++;
+		};
 		util.base+=util.typeSize;
 	};
 	return count;
