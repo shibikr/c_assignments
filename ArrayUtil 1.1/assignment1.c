@@ -80,6 +80,18 @@ int filter(ArrayUtil util, MatchFunc* match, void* hint, void** destination, int
 	return count;
 };
 
+void map(ArrayUtil source, ArrayUtil destination, ConvertFunc* convert, void* hint){
+	for(int i = 0;i < source.length;i++){
+		convert(hint,source.base,destination.base);
+		destination.base+=destination.typeSize;
+		source.base+=source.typeSize;
+	};
+};
+
+void forEach(ArrayUtil util, OperationFunc* operation, void* hint){
+
+};
+
 
 
 

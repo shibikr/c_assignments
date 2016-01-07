@@ -2,20 +2,20 @@
 #include <assert.h>
 #include "assignment1.h"
 
-void test_createArrayTest(){
+void test_createArray(){
 	ArrayUtil array1 = create(4,5);
 	assert(array1.typeSize == 4);
 	assert(array1.length == 5);
 };
 
-void test_resizeArrayTest(){
+void test_resizeArray(){
 	ArrayUtil array = create(4,5);
 	ArrayUtil array1 = resize(array,10);
 	assert(array1.typeSize == 4);
 	assert(array1.length == 10);
 };
 
-void test_areEqualTest(){
+void test_areEqual(){
 	ArrayUtil array1 = create(4,5);
 	ArrayUtil array2 = create(8,10);
 	assert(areEqual(array1,array2) == 0);
@@ -23,7 +23,7 @@ void test_areEqualTest(){
 	assert(areEqual(array2,array2) == 1);
 };
 
-void test_findIndexTest(){
+void test_findIndex(){
 	int value = 1;
 	int value1 = 0;
 	int value2 = 10;
@@ -49,7 +49,7 @@ int isDivisible(void* hint, void* item){
 	return 0;
 };
 
-void test_findFirstTest(){
+void test_findFirst(){
 	int number = 3;
 	void* hint = &number;
 	ArrayUtil array1 = create(4,5);
@@ -66,7 +66,7 @@ void test_findFirstTest(){
 	assert(*value1 == 3);
 };
 
-void test_findLastTest(){
+void test_findLast(){
 	int number = 3;
 	void* hint = &number;
 	ArrayUtil array1 = create(4,5);
@@ -83,7 +83,7 @@ void test_findLastTest(){
 	assert(*value1 == 3);
 };
 
-void test_countTest(){
+void test_count(){
 	int number = 3;
 	void* hint = &number;
 	ArrayUtil array1 = create(4,5);
@@ -96,7 +96,7 @@ void test_countTest(){
 	assert(count(array1,isDivisible,hint) == 1);
 };
 
-void test_filterTest(){
+void test_filter(){
 	int number = 3;
 	void* hint = &number;
 	ArrayUtil source = create(4,5);
@@ -109,5 +109,32 @@ void test_filterTest(){
 	int **dest = destination.base;
 	assert(filter(source,isDivisible,hint,destination.base,5) == 1);
 	assert(filter(source,isEven,hint,destination.base,5) == 2);
+};
+
+void multiply(void* hint, void* sourceItem, void* destinationItem){
+	int *multiplier = (int *) hint;
+	int *value = (int *) sourceItem;
+	int result = (*value) * (*multiplier);
+	int *dest = (int *)destinationItem;
+	*dest = result;  
+};
+
+void test_map(){
+	int number = 3;
+	void* hint = &number;
+	ArrayUtil source = create(4,5);
+	((int *)source.base)[0] = 1;
+	((int *)source.base)[1] = 2;
+	((int *)source.base)[2] = 3;
+	((int *)source.base)[3] = 4;
+	((int *)source.base)[4] = 5;
+	ArrayUtil destination = create(4,5);
+	map(source,destination,multiply,hint);
+	int *base = (int *)destination.base;
+	assert(*(base) == 3);
+	assert(*(base+1) == 6);
+	assert(*(base+2) == 9);
+	assert(*(base+3) == 12);
+	assert(*(base+4) == 15);
 };
 
