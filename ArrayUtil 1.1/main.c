@@ -138,16 +138,15 @@ void test_map(){
 	assert(*(base+4) == 15);
 };
 
-void multiply(void* hint, void* sourceItem, void* destinationItem){
+void multiplyForEach(void* hint, void* sourceItem){
 	int *multiplier = (int *) hint;
 	int *value = (int *) sourceItem;
 	int result = (*value) * (*multiplier);
-	int *dest = (int *)destinationItem;
-	*dest = result;  
+	*value = result;  
 };
 
-void test_map(){
-	int number = 3;
+void test_forEach(){
+	int number = 2;
 	void* hint = &number;
 	ArrayUtil source = create(4,5);
 	((int *)source.base)[0] = 1;
@@ -155,14 +154,13 @@ void test_map(){
 	((int *)source.base)[2] = 3;
 	((int *)source.base)[3] = 4;
 	((int *)source.base)[4] = 5;
-	ArrayUtil destination = create(4,5);
-	map(source,destination,multiply,hint);
-	int *base = (int *)destination.base;
-	assert(*(base) == 3);
-	assert(*(base+1) == 6);
-	assert(*(base+2) == 9);
-	assert(*(base+3) == 12);
-	assert(*(base+4) == 15);
+	forEach(source,multiplyForEach,hint);
+	int *base = (int *)source.base;
+	assert(*(base) == 2);
+	assert(*(base+1) == 4);
+	assert(*(base+2) == 6);
+	assert(*(base+3) == 8);
+	assert(*(base+4) == 10);
 };
 
 void *add(void *hint,void *previousItem, void* item){
