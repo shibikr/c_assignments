@@ -138,3 +138,53 @@ void test_map(){
 	assert(*(base+4) == 15);
 };
 
+void multiply(void* hint, void* sourceItem, void* destinationItem){
+	int *multiplier = (int *) hint;
+	int *value = (int *) sourceItem;
+	int result = (*value) * (*multiplier);
+	int *dest = (int *)destinationItem;
+	*dest = result;  
+};
+
+void test_map(){
+	int number = 3;
+	void* hint = &number;
+	ArrayUtil source = create(4,5);
+	((int *)source.base)[0] = 1;
+	((int *)source.base)[1] = 2;
+	((int *)source.base)[2] = 3;
+	((int *)source.base)[3] = 4;
+	((int *)source.base)[4] = 5;
+	ArrayUtil destination = create(4,5);
+	map(source,destination,multiply,hint);
+	int *base = (int *)destination.base;
+	assert(*(base) == 3);
+	assert(*(base+1) == 6);
+	assert(*(base+2) == 9);
+	assert(*(base+3) == 12);
+	assert(*(base+4) == 15);
+};
+
+void *add(void *hint,void *previousItem, void* item){
+	int *prev = (int *) previousItem;
+	int *current = (int *) item;
+	*prev = *prev + *current;
+	void *result = prev;
+	return result;
+};
+
+void test_reduce(){
+	int initial = 0;
+	void * initialValue = &initial;
+	int hintValue = 2;
+	void *hint = &hintValue;
+	ArrayUtil source = create(4,5);
+	((int *)source.base)[0] = 1;
+	((int *)source.base)[1] = 2;
+	((int *)source.base)[2] = 3;
+	((int *)source.base)[3] = 4;
+	((int *)source.base)[4] = 5;
+	void * result = reduce(source, add, hint, initialValue);
+	int *value = (int *)(result);
+	assert(*value == 15);
+};
