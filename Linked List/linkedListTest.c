@@ -51,3 +51,24 @@ void test_get_last_element(){
 	int result2 = *(int *)get_last_element(list);
 	assert(result2 == 30);
 };
+
+void increment(void *value){
+	*(int*)value = *((int *)value)+1;
+};
+
+void test_forEach(){
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+	int value4 = 50;
+	add_to_list(&list,&value4);
+	forEach(list,&increment);
+	assert(*(int *)list.first->value == 11);
+	assert(*(int *)list.last->value == 51);
+};
