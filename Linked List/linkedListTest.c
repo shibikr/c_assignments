@@ -101,3 +101,32 @@ void test_getElementAt_gives_NULL_when_the_index_given_is_not_in_list(){
 	int value4 = 50;
 	assert(getElementAt(list,6) == NULL);
 };
+
+void test_indexOf_gives_index_of_the_value_given_if_it_is_present(){
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+	int value4 = 50;
+	assert(indexOf(list,&value3) == 3);
+};
+
+void test_indexOf_gives_NULL_if_the_value_given_is_not_present(){
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+	int value4 = 50;
+	int value5 = 60;
+	assert(indexOf(list,&value5) == -1);
+};
