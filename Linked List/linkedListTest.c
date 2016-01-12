@@ -56,7 +56,7 @@ void increment(void *value){
 	*(int*)value = *((int *)value)+1;
 };
 
-void test_forEach(){
+void test_forEach_increments_each_element_in_the_linkedlist(){
 	LinkedList list = createList();
 	int value = 10;
 	add_to_list(&list,&value);
@@ -71,4 +71,33 @@ void test_forEach(){
 	forEach(list,&increment);
 	assert(*(int *)list.first->value == 11);
 	assert(*(int *)list.last->value == 51);
+};
+
+void test_getElementAt_gives_value_of_the_index_given(){
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+	int value4 = 50;
+	int element = *(int*)(getElementAt(list,2));
+	assert(element == 30);
+};
+
+void test_getElementAt_gives_NULL_when_the_index_given_is_not_in_list(){
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+	int value4 = 50;
+	assert(getElementAt(list,6) == NULL);
 };

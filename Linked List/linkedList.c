@@ -40,4 +40,13 @@ void forEach(LinkedList list, ElementProcessor *increment ){
 	};
 };
 
+void * getElementAt(LinkedList list, int value){
+	for(int i = 0;i<list.length;i++){
+		if(i == value){
+			return list.first->value;
+		}
+		list.first = list.first->next;
+	};
+	return NULL;
+};
 
