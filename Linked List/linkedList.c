@@ -103,3 +103,13 @@ int asArray(LinkedList list, void **array, int maxElements){
 	};
 	return length;
 };
+
+LinkedList filter(LinkedList list, MatchFunc match, void *hint ){
+	LinkedList newList = createList();
+	for(int i = 0;i<list.length;i++){
+		if(match(hint,list.first->value) == 1)
+			add_to_list(&newList,list.first->value);
+		list.first = list.first->next;
+	};
+	return newList;
+};

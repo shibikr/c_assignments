@@ -240,3 +240,43 @@ void test_asArray_should_change_values_in_the_array(){
 		array+=8;
 	};
 };
+
+int isDivisible(void *hint,void *item){
+	if(*(int*)item % *(int*)hint == 0)
+		return 1;
+	return 0;
+};
+
+void test_filter_for_isDivisible_by_3(){
+	int hint = 3;
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+	LinkedList newList = filter(list,isDivisible,&hint);
+	assert(newList.first->value == &value2);
+};
+
+void test_filter_for_isDivisible_by_6(){
+	int hint = 6;
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 12;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 42;
+	add_to_list(&list,&value3);
+	LinkedList newList = filter(list,isDivisible,&hint);
+	assert(newList.first->value == &value1);
+	newList.first = newList.first->next;
+	assert(newList.first->value == &value2);
+	newList.first = newList.first->next;
+	assert(newList.first->value == &value3);
+};
