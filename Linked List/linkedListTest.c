@@ -116,7 +116,7 @@ void test_indexOf_gives_index_of_the_value_given_if_it_is_present(){
 	assert(indexOf(list,&value3) == 3);
 };
 
-void test_indexOf_gives_NULL_if_the_value_given_is_not_present(){
+void test_indexOf_should_give_NULL_if_the_value_given_is_not_present(){
 	LinkedList list = createList();
 	int value = 10;
 	add_to_list(&list,&value);
@@ -128,5 +128,81 @@ void test_indexOf_gives_NULL_if_the_value_given_is_not_present(){
 	add_to_list(&list,&value3);
 	int value4 = 50;
 	int value5 = 60;
+
 	assert(indexOf(list,&value5) == -1);
 };
+
+void test_deleteElementAt_should_return_NULL_if_the_index_is_greater_than_list_length(){
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+
+	assert(deleteElementAt(&list, 4) == NULL);
+};
+
+void test_deleteElementAt_should_return_NULL_if_the_index_is_less_than_zero(){
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+
+	assert(deleteElementAt(&list, -1) == NULL);
+};
+
+void test_deleteElementAt_should_return_deleted_value(){
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+
+	assert(deleteElementAt(&list, 0) == &value);
+	assert(list.first->value == &value1);
+	assert(list.length == 3);
+};
+
+void test_deleteElementAt_should_return_last_element(){
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+
+	assert(deleteElementAt(&list, 3) == &value3);
+	assert(list.last->value == &value2);
+	assert(list.length == 3);
+};
+
+void test_deleteElementAt_should_return_the_element_which_deleted(){
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+
+	assert(deleteElementAt(&list, 2) == &value2);
+	assert(list.length == 3);
+}

@@ -18,3 +18,4 @@ void *get_last_element(LinkedList list);
 void forEach(LinkedList list, ElementProcessor *e);
 void * getElementAt(LinkedList list, int value);
 int indexOf(LinkedList list, void * value);
+void * deleteElementAt(LinkedList *list, int index);
