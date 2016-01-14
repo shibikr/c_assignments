@@ -1,6 +1,7 @@
 #include <assert.h>
 #include "linkedList.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void test_createList(){
 	LinkedList list = createList();
@@ -205,4 +206,37 @@ void test_deleteElementAt_should_return_the_element_which_deleted(){
 
 	assert(deleteElementAt(&list, 2) == &value2);
 	assert(list.length == 3);
-}
+};
+
+void test_asArray(){
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+	void *array = calloc(5,4);
+	assert(asArray(list,array,5) == 4);	
+};
+
+void test_asArray_should_change_values_in_the_array(){
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+	void *array = calloc(5,4);
+	asArray(list,array,5);
+	int arr[] = {10,20,30,40};
+	for(int i = 0;i<4;i++){
+		assert(**(int**)array == arr[i]);
+		array+=8;
+	};
+};

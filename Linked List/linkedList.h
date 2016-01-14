@@ -19,3 +19,4 @@ void forEach(LinkedList list, ElementProcessor *e);
 void * getElementAt(LinkedList list, int value);
 int indexOf(LinkedList list, void * value);
 void * deleteElementAt(LinkedList *list, int index);
+int asArray(LinkedList list, void **array, int maxElements);
