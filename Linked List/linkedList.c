@@ -95,7 +95,6 @@ void * deleteElementAt(LinkedList *list, int index){
 };
 
 int asArray(LinkedList list, void **array, int maxElements){
-	int count = 0;
 	int length = (maxElements > list.length) ? list.length:maxElements;
 	for(int i = 0;i<length;i++){
 		array[i] = list.first->value;
@@ -109,6 +108,24 @@ LinkedList filter(LinkedList list, MatchFunc match, void *hint ){
 	for(int i = 0;i<list.length;i++){
 		if(match(hint,list.first->value) == 1)
 			add_to_list(&newList,list.first->value);
+		list.first = list.first->next;
+	};
+	return newList;
+};
+
+LinkedList reverse(LinkedList list){
+	LinkedList reverseList = createList();
+	for(int i = list.length-1; i>=0 ;i--){
+		add_to_list(&reverseList,getElementAt(list,i));
+	}
+	return reverseList;	
+};
+
+LinkedList map(LinkedList list, ConvertFunc convert, void *hint ){
+	LinkedList newList = createList();
+	for(int i = 0;i<list.length;i++){
+		add_to_list(&newList,NULL);
+		convert(hint,list.first->value,&(newList.last->value));
 		list.first = list.first->next;
 	};
 	return newList;

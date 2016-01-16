@@ -2,6 +2,7 @@
 #include "linkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void test_createList(){
 	LinkedList list = createList();
@@ -279,4 +280,50 @@ void test_filter_for_isDivisible_by_6(){
 	assert(newList.first->value == &value2);
 	newList.first = newList.first->next;
 	assert(newList.first->value == &value3);
+};
+
+void test_reverse_gives_the_reversed_list(){
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 12;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 42;
+	add_to_list(&list,&value3);
+	LinkedList newList = reverse(list);
+	assert(*(int*)newList.first->value == 42);
+	newList.first = newList.first->next;
+	assert(*(int*)newList.first->value == 30);
+	newList.first = newList.first->next;
+	assert(*(int*)newList.first->value == 12);
+	assert(*(int*)newList.last->value == 10);
+};
+
+void multiply(void* hint, void* sourceItem, void* destinationItem){
+	int *dest = malloc(sizeof(int));
+	*dest = *(int *)sourceItem * *(int *)hint;
+	memcpy(destinationItem,&dest,8);
+};
+
+void test_map_for_multiply_with_2(){
+	int hint = 2;
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+	LinkedList newList = map(list,multiply,&hint);
+	assert(*(int*)newList.first->value == 20);
+	newList.first = newList.first->next;
+	assert(*(int*)newList.first->value == 40);
+	newList.first = newList.first->next;
+	assert(*(int*)newList.first->value == 60);
+	newList.first = newList.first->next;
+	assert(*(int*)newList.first->value == 80);
 };
