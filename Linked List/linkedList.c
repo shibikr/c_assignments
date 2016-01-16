@@ -130,3 +130,15 @@ LinkedList map(LinkedList list, ConvertFunc convert, void *hint ){
 	};
 	return newList;
 };
+
+void* reduce(LinkedList list, Reducer reduceFun, void *hint, void *initialValue){
+	void *previousValue;
+	if(initialValue == NULL)
+		previousValue = list.first->value;
+	previousValue = initialValue;
+	while(list.first!=NULL){
+		previousValue = reduceFun(hint,previousValue,list.first->value);
+		list.first = list.first->next;
+	};
+	return previousValue;
+};

@@ -327,3 +327,23 @@ void test_map_for_multiply_with_2(){
 	newList.first = newList.first->next;
 	assert(*(int*)newList.first->value == 80);
 };
+
+void* add(void* hint, void* previousItem, void* item){
+	*(int*)previousItem += *(int*)item;
+	return previousItem;
+};
+
+void test_reduce_for_addition_of_integers(){
+	int hint = 2;
+	int intialValue = 0;
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+	assert(*(int*)reduce(list,add,&hint,&intialValue) == 100);
+};
