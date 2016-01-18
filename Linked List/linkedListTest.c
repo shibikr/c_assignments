@@ -11,7 +11,7 @@ void test_createList(){
 	assert(list.length == 0);
 };
 
-void test_addToList(){
+void test_addToList_adds_integers(){
 	LinkedList list = createList();
 	int value1 = 10;
 	int result1 = add_to_list(&list,&value1);
@@ -30,12 +30,112 @@ void test_addToList(){
 	assert(element3 == 30);
 };
 
-void test_get_first_element(){
+void test_addToList_adds_chars(){
+	LinkedList list = createList();
+	char value = 'H';
+	int result1 = add_to_list(&list,&value);
+	char element1 = *(char *)(list.first->value);
+	assert(result1 == 1);
+	assert(element1 == 'H');
+	char value2 = 'a';
+	int result2 = add_to_list(&list,&value2);
+	char element2 = *(char *)(list.last->value);
+	assert(result2 == 2);
+	assert(element2 == 'a');
+	char value3 = 'i';
+	int result3 = add_to_list(&list,&value3);
+	char element3 = *(char *)(list.last->value);
+	assert(result3 == 3);
+	assert(element3 == 'i');
+};
+
+void test_addToList_adds_string(){
+	LinkedList list = createList();
+	char value1[] = "C";
+	int result1 = add_to_list(&list,&value1);
+	char *element1 = (char *)(list.first->value);
+	assert(result1 == 1);
+	assert(element1 == value1);
+	char value2[] = "is";
+	int result2 = add_to_list(&list,&value2);
+	char *element2 = (char *)(list.last->value);
+	assert(result2 == 2);
+	assert(element2 == value2);
+	char value3[] = "simple";
+	int result3 = add_to_list(&list,&value3);
+	char *element3 = (char *)(list.last->value);
+	assert(result3 == 3);
+	assert(element3 == value3);
+};
+
+void test_addToList_adds_doubles(){
+	LinkedList list = createList();
+	double value1 = 10.1;
+	int result1 = add_to_list(&list,&value1);
+	double element1 = *(double *)(list.first->value);
+	assert(result1 == 1);
+	assert(element1 == 10.1);
+	double value2 = 20.2;
+	int result2 = add_to_list(&list,&value2);
+	double element2 = *(double *)(list.last->value);
+	assert(result2 == 2);
+	assert(element2 == 20.2);
+	double value3 = 30.3;
+	int result3 = add_to_list(&list,&value3);
+	double element3 = *(double *)(list.last->value);
+	assert(result3 == 3);
+	assert(element3 == 30.3);
+};
+
+void test_addToList_adds_float(){
+	LinkedList list = createList();
+	double value1 = 10.1;
+	int result1 = add_to_list(&list,&value1);
+	double element1 = *(double *)(list.first->value);
+	assert(result1 == 1);
+	assert(element1 == 10.1);
+	double value2 = 20.2;
+	int result2 = add_to_list(&list,&value2);
+	double element2 = *(double *)(list.last->value);
+	assert(result2 == 2);
+	assert(element2 == 20.2);
+	double value3 = 30.3;
+	int result3 = add_to_list(&list,&value3);
+	double element3 = *(double *)(list.last->value);
+	assert(result3 == 3);
+	assert(element3 == 30.3);
+};
+
+void test_get_first_element_should_give_integer(){
 	LinkedList list = createList();
 	int value = 10;
 	add_to_list(&list,&value);
 	int result = *(int *)get_first_element(list);
 	assert(result == 10);
+};
+
+void test_get_first_element_should_give_char(){
+	LinkedList list = createList();
+	char value = 'a';
+	add_to_list(&list,&value);
+	char result = *(char *)get_first_element(list);
+	assert(result == 'a');
+};
+
+void test_get_first_element_should_give_string(){
+	LinkedList list = createList();
+	char value[] = "shibi";
+	add_to_list(&list,&value);
+	char *result = (char *)get_first_element(list);
+	assert(result == value);
+};
+
+void test_get_first_element_should_give_double(){
+	LinkedList list = createList();
+	double value = 10.1;
+	add_to_list(&list,&value);
+	double result = *(double *)get_first_element(list);
+	assert(result == 10.1);
 };
 
 void test_get_last_element(){
