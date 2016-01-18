@@ -89,21 +89,21 @@ void test_addToList_adds_doubles(){
 
 void test_addToList_adds_float(){
 	LinkedList list = createList();
-	double value1 = 10.1;
+	float value1 = 10.1;
 	int result1 = add_to_list(&list,&value1);
-	double element1 = *(double *)(list.first->value);
+	float element1 = *(float *)(list.first->value);
 	assert(result1 == 1);
-	assert(element1 == 10.1);
-	double value2 = 20.2;
+	assert(element1 == value1);
+	float value2 = 20.2;
 	int result2 = add_to_list(&list,&value2);
-	double element2 = *(double *)(list.last->value);
+	float element2 = *(float *)(list.last->value);
 	assert(result2 == 2);
-	assert(element2 == 20.2);
-	double value3 = 30.3;
+	assert(element2 == value2);
+	float value3 = 30.3;
 	int result3 = add_to_list(&list,&value3);
-	double element3 = *(double *)(list.last->value);
+	float element3 = *(float *)(list.last->value);
 	assert(result3 == 3);
-	assert(element3 == 30.3);
+	assert(element3 == value3);
 };
 
 void test_get_first_element_should_give_integer(){
@@ -138,7 +138,15 @@ void test_get_first_element_should_give_double(){
 	assert(result == 10.1);
 };
 
-void test_get_last_element(){
+void test_get_first_element_should_give_float(){
+	LinkedList list = createList();
+	float value = 10.1;
+	add_to_list(&list,&value);
+	float result = *(float *)get_first_element(list);
+	assert(result == value);
+};
+
+void test_get_last_element_should_return_integer(){
 	LinkedList list = createList();
 	int value = 10;
 	add_to_list(&list,&value);
@@ -154,11 +162,75 @@ void test_get_last_element(){
 	assert(result2 == 30);
 };
 
-void increment(void *value){
+void test_get_last_element_should_return_char(){
+	LinkedList list = createList();
+	char value = 'a';
+	add_to_list(&list,&value);
+	char result = *(char *)get_last_element(list);
+	assert(result == 'a');
+	char value1 = 'b';
+	add_to_list(&list,&value1);
+	char result1 = *(char *)get_last_element(list);
+	assert(result1 == 'b');
+	char value2 = 'c';
+	add_to_list(&list,&value2);
+	char result2 = *(char *)get_last_element(list);
+	assert(result2 == 'c');
+};
+
+void test_get_last_element_should_return_string(){
+	LinkedList list = createList();
+	char value[] = "hello";
+	add_to_list(&list,&value);
+	char *result = (char *)get_last_element(list);
+	assert(result == value);
+	char value1[] = "hai";
+	add_to_list(&list,&value1);
+	char *result1 = (char *)get_last_element(list);
+	assert(result1 == value1);
+	char value2[] = "how";
+	add_to_list(&list,&value2);
+	char *result2 = (char *)get_last_element(list);
+	assert(result2 == value2);
+};
+
+void test_get_last_element_should_return_double(){
+	LinkedList list = createList();
+	double value = 10.1;
+	add_to_list(&list,&value);
+	double result = *(double *)get_last_element(list);
+	assert(result == 10.1);
+	double value1 = 20.2;
+	add_to_list(&list,&value1);
+	double result1 = *(double *)get_last_element(list);
+	assert(result1 == 20.2);
+	double value2 = 30.3;
+	add_to_list(&list,&value2);
+	double result2 = *(double *)get_last_element(list);
+	assert(result2 == 30.3);
+};
+
+void test_get_last_element_should_return_float(){
+	LinkedList list = createList();
+	float value = 10.1;
+	add_to_list(&list,&value);
+	float result = *(float *)get_last_element(list);
+	assert(result == value);
+	float value1 = 20.2;
+	add_to_list(&list,&value1);
+	float result1 = *(float *)get_last_element(list);
+	assert(result1 == value1);
+	float value2 = 30.3;
+	add_to_list(&list,&value2);
+	float result2 = *(float *)get_last_element(list);
+	assert(result2 == value2);
+};
+
+void incrementInteger(void *value){
 	*(int*)value = *((int *)value)+1;
 };
 
-void test_forEach_increments_each_element_in_the_linkedlist(){
+void test_forEach_increments_each_element_in_the_linkedlist_for_integers(){
 	LinkedList list = createList();
 	int value = 10;
 	add_to_list(&list,&value);
@@ -170,9 +242,53 @@ void test_forEach_increments_each_element_in_the_linkedlist(){
 	add_to_list(&list,&value3);
 	int value4 = 50;
 	add_to_list(&list,&value4);
-	forEach(list,&increment);
+	forEach(list,&incrementInteger);
 	assert(*(int *)list.first->value == 11);
 	assert(*(int *)list.last->value == 51);
+};
+
+void incrementFloat(void *value){
+	*(float*)value = *((float *)value)+1;
+};
+
+void test_forEach_increments_each_element_in_the_linkedlist_for_float(){
+	LinkedList list = createList();
+	float value = 10.1;
+	add_to_list(&list,&value);
+	float value1 = 20.2;
+	add_to_list(&list,&value1);
+	float value2 = 30.3;
+	add_to_list(&list,&value2);
+	float value3 = 40.4;
+	add_to_list(&list,&value3);
+	float value4 = 50.5;
+	add_to_list(&list,&value4);
+	forEach(list,&incrementFloat);
+	float result = *(float *)list.first->value;
+	assert(result == result);
+	float result1 = *(float *)list.last->value;
+	assert(result1 == result1);
+};
+
+void square(void *value){
+	*(int*)value *= *((int *)value);
+};
+
+void test_forEach_square_each_element_in_the_linkedlist(){
+	LinkedList list = createList();
+	int value = 10;
+	add_to_list(&list,&value);
+	int value1 = 20;
+	add_to_list(&list,&value1);
+	int value2 = 30;
+	add_to_list(&list,&value2);
+	int value3 = 40;
+	add_to_list(&list,&value3);
+	int value4 = 50;
+	add_to_list(&list,&value4);
+	forEach(list,&square);
+	assert(*(int *)list.first->value == 100);
+	assert(*(int *)list.last->value == 2500);
 };
 
 void test_getElementAt_gives_value_of_the_index_given(){
@@ -309,7 +425,7 @@ void test_deleteElementAt_should_return_the_element_which_deleted(){
 	assert(list.length == 3);
 };
 
-void test_asArray(){
+void test_asArray_should_give_new_length(){
 	LinkedList list = createList();
 	int value = 10;
 	add_to_list(&list,&value);
